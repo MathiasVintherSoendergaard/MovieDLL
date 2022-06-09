@@ -11,27 +11,32 @@ namespace MovieDLL.Tests
     [TestClass()]
     public class MovieTests
     {
-        Movie newMovie = new Movie() { Id = 1, Name = "Reservoir Dogs", Country = "America", LengthInMinutes = 99 };
+        public Movie m;
+        [TestInitialize]
+        public void SetUp()
+        {
+            m = new Movie() { Id = 1, Name = "Reservoir Dogs", Country = "America", LengthInMinutes = 99 };
+        }
         [TestMethod()]
         public void ConvertLengthInMinutesToSecondsTestValid()
         {
-            Assert.AreEqual(5940, newMovie.ConvertLengthInMinutesToSeconds());
+            Assert.AreEqual(5940, m.tc.ConvertLengthInMinutesToSeconds(m.LengthInMinutes));
         }
         [TestMethod()]
         public void ConstructorTest()
         {
-            Assert.AreEqual(1, newMovie.Id);
-            Assert.AreEqual("Reservoir Dogs", newMovie.Name);
-            Assert.AreEqual("America", newMovie.Country);
-            Assert.AreEqual(99, newMovie.LengthInMinutes);
+            Assert.AreEqual(1, m.Id);
+            Assert.AreEqual("Reservoir Dogs", m.Name);
+            Assert.AreEqual("America", m.Country);
+            Assert.AreEqual(99, m.LengthInMinutes);
         }
         [TestMethod()]
         public void ConvertLengthInMinutesToSecondsTestInvalid()
         {
-            newMovie.LengthInMinutes = 0;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => newMovie.ConvertLengthInMinutesToSeconds());
-            newMovie.LengthInMinutes = -1;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => newMovie.ConvertLengthInMinutesToSeconds());
+            m.LengthInMinutes = 0;
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => m.tc.ConvertLengthInMinutesToSeconds(m.LengthInMinutes));
+            m.LengthInMinutes = -1;
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => m.tc.ConvertLengthInMinutesToSeconds(m.LengthInMinutes));
         }
     }
 }
